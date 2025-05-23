@@ -1,10 +1,7 @@
-import { IsNumber } from 'class-validator';
+import { TradeSide } from '../entities/tradeitem.entity';
 
 export class CreateTradeItemDto {
-  @IsNumber()
-  trade_id: number;
-
-  @IsNumber()
-  skin_instance_id: number;
+  trade: number; // trade ID
+  skin_instance: number; // skinInstance ID
+  side: TradeSide;
 }
-    

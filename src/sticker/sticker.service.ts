@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Sticker } from './entities/sticker.entity';
 import { CreateStickerDto } from './dto/create-sticker.dto';
 import { UpdateStickerDto } from './dto/update-sticker.dto';
 
 @Injectable()
 export class StickerService {
-  create(createStickerDto: CreateStickerDto) {
-    return 'This action adds a new sticker';
+  constructor(
+    @InjectRepository(Sticker)
+    private readonly repo: Repository<Sticker>,
+  ) {}
+
+  create(dto: CreateStickerDto) {
+    const sticker = this.repo.create(dto);
+    return this.repo.save(sticker);
   }
 
   findAll() {
-    return `This action returns all sticker`;
+    return this.repo.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} sticker`;
+    return this.repo.findOneBy({ id });
   }
 
-  update(id: number, updateStickerDto: UpdateStickerDto) {
-    return `This action updates a #${id} sticker`;
+  async update(id: number, dto: UpdateStickerDto) {
+    await this.repo.update(id, dto);
+    return this.findOne(id);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} sticker`;
+    return this.repo.delete(id);
   }
 }

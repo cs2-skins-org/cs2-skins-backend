@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { SkinSticker } from '../../skinstickers/entities/skinsticker.entity';
 
 @Entity()
 export class Sticker {
@@ -13,4 +14,7 @@ export class Sticker {
 
   @Column()
   image_path: string;
+
+  @OneToMany(() => SkinSticker, (ss) => ss.sticker)
+  appliedTo: SkinSticker[];
 }
