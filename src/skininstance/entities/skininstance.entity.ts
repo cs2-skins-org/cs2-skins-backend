@@ -11,8 +11,8 @@ export class SkinInstance {
   @ManyToOne(() => Skin, { nullable: false })
   skin: Skin;
 
-  @ManyToOne(() => User, { nullable: false })
-  owner: User;
+  @ManyToOne(() => User, user => user.skinInstances)
+owner: User;
 
   @Column('float')
   float_value: number;

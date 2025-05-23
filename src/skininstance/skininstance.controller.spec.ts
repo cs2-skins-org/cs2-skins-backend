@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SkininstanceController } from './skininstance.controller';
-import { SkininstanceService } from './skininstance.service';
+import { SkinInstanceController } from './skininstance.controller';
+import { SkinInstanceService } from './skininstance.service';
 
 describe('SkininstanceController', () => {
-  let controller: SkininstanceController;
+  let controller: SkinInstanceController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [SkininstanceController],
-      providers: [SkininstanceService],
+      controllers: [SkinInstanceController],
+      providers: [SkinInstanceService],
     }).compile();
 
-    controller = module.get<SkininstanceController>(SkininstanceController);
+    controller = module.get<SkinInstanceController>(SkinInstanceController);
   });
 
   it('should be defined', () => {

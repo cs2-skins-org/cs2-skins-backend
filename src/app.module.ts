@@ -6,10 +6,10 @@ import { AppService } from './app.service';
 
 import { UsersModule } from './users/users.module';
 import { SkinModule } from './skin/skin.module';
-import { SkinstickersModule } from './skinstickers/skinstickers.module';
+import { SkinStickersModule } from './skinstickers/skinstickers.module';
 import { StickerModule } from './sticker/sticker.module';
-import { SkininstanceModule } from './skininstance/skininstance.module';
-import { TradeitemsModule } from './tradeitems/tradeitems.module';
+import { SkinInstanceModule } from './skininstance/skininstance.module';
+import { TradeItemsModule } from './tradeitems/tradeitems.module';
 import { TradeModule } from './trade/trade.module';
 import { CollectionModule } from './collection/collection.module';
 
@@ -27,10 +27,10 @@ import { CollectionModule } from './collection/collection.module';
     }),
     UsersModule,
     SkinModule,
-    SkinstickersModule,
+    SkinStickersModule,
     StickerModule,
-    SkininstanceModule,
-    TradeitemsModule,
+    SkinInstanceModule,
+    TradeItemsModule,
     TradeModule,
     CollectionModule,
   ],

@@ -1,34 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { TradeitemsService } from './tradeitems.service';
-import { CreateTradeitemDto } from './dto/create-tradeitem.dto';
-import { UpdateTradeitemDto } from './dto/update-tradeitem.dto';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { TradeItemsService } from './tradeitems.service';
+import { CreateTradeItemDto } from './dto/create-tradeitem.dto';
+import { UpdateTradeItemDto } from './dto/update-tradeitem.dto';
 
-@Controller('tradeitems')
-export class TradeitemsController {
-  constructor(private readonly tradeitemsService: TradeitemsService) {}
+@Controller('trade-items')
+export class TradeItemsController {
+  constructor(private readonly service: TradeItemsService) {}
 
   @Post()
-  create(@Body() createTradeitemDto: CreateTradeitemDto) {
-    return this.tradeitemsService.create(createTradeitemDto);
+  create(@Body() dto: CreateTradeItemDto) {
+    return this.service.create(dto);
   }
 
   @Get()
   findAll() {
-    return this.tradeitemsService.findAll();
+    return this.service.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.tradeitemsService.findOne(+id);
+    return this.service.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTradeitemDto: UpdateTradeitemDto) {
-    return this.tradeitemsService.update(+id, updateTradeitemDto);
+  @Put(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateTradeItemDto) {
+    return this.service.update(+id, dto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.tradeitemsService.remove(+id);
+    return this.service.remove(+id);
   }
 }

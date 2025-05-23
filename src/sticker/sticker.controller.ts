@@ -1,34 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { StickerService } from './sticker.service';
 import { CreateStickerDto } from './dto/create-sticker.dto';
 import { UpdateStickerDto } from './dto/update-sticker.dto';
 
-@Controller('sticker')
+@Controller('stickers')
 export class StickerController {
-  constructor(private readonly stickerService: StickerService) {}
+  constructor(private readonly service: StickerService) {}
 
   @Post()
-  create(@Body() createStickerDto: CreateStickerDto) {
-    return this.stickerService.create(createStickerDto);
+  create(@Body() dto: CreateStickerDto) {
+    return this.service.create(dto);
   }
 
   @Get()
   findAll() {
-    return this.stickerService.findAll();
+    return this.service.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.stickerService.findOne(+id);
+    return this.service.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStickerDto: UpdateStickerDto) {
-    return this.stickerService.update(+id, updateStickerDto);
+  @Put(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateStickerDto) {
+    return this.service.update(+id, dto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.stickerService.remove(+id);
+    return this.service.remove(+id);
   }
 }
