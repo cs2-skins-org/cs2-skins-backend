@@ -10,3 +10,4 @@ export class CreateStickerDto {
   @IsString()
   image_path: string;
 }
+    

@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
-import { User } from '../users/user.entity';
-import { TradeItem } from '../trade-items/trade-item.entity';
+import { User } from '../../users/entities/user.entity';
+import { TradeItem } from '../../tradeitems/entities/tradeitem.entity';
+
 
 @Entity()
 export class Trade {

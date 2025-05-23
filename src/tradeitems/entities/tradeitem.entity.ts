@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Trade } from '../trades/trade.entity';
-import { SkinInstance } from '../skin-instances/skin-instance.entity';
+import { Trade } from '../../trade/entities/trade.entity';
+import { Skininstance } from '../../skininstance/entities/skininstance.entity';
 
 @Entity()
 export class TradeItem {
@@ -10,6 +10,6 @@ export class TradeItem {
   @ManyToOne(() => Trade, trade => trade.items)
   trade: Trade;
 
-  @ManyToOne(() => SkinInstance)
-  skin_instance: SkinInstance;
+  @ManyToOne(() => Skininstance)
+  skin_instance: Skininstance;
 }
