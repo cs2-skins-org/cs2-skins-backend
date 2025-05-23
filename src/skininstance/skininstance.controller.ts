@@ -1,34 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { SkininstanceService } from './skininstance.service';
-import { CreateSkininstanceDto } from './dto/create-skininstance.dto';
-import { UpdateSkininstanceDto } from './dto/update-skininstance.dto';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { SkinInstanceService } from './skininstance.service';
+import { CreateSkinInstanceDto } from './dto/create-skininstance.dto';
+import { UpdateSkinInstanceDto } from './dto/update-skininstance.dto';
 
-@Controller('skininstance')
-export class SkininstanceController {
-  constructor(private readonly skininstanceService: SkininstanceService) {}
+@Controller('skin-instances')
+export class SkinInstanceController {
+  constructor(private readonly service: SkinInstanceService) {}
 
   @Post()
-  create(@Body() createSkininstanceDto: CreateSkininstanceDto) {
-    return this.skininstanceService.create(createSkininstanceDto);
+  create(@Body() dto: CreateSkinInstanceDto) {
+    return this.service.create(dto);
   }
 
   @Get()
   findAll() {
-    return this.skininstanceService.findAll();
+    return this.service.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.skininstanceService.findOne(+id);
+    return this.service.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSkininstanceDto: UpdateSkininstanceDto) {
-    return this.skininstanceService.update(+id, updateSkininstanceDto);
+  @Put(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateSkinInstanceDto) {
+    return this.service.update(+id, dto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.skininstanceService.remove(+id);
+    return this.service.remove(+id);
   }
 }

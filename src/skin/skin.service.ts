@@ -1,26 +1,50 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Skin } from './entities/skin.entity';
 import { CreateSkinDto } from './dto/create-skin.dto';
 import { UpdateSkinDto } from './dto/update-skin.dto';
+import { Collection } from '../collection/entities/collection.entity';
 
 @Injectable()
 export class SkinService {
-  create(createSkinDto: CreateSkinDto) {
-    return 'This action adds a new skin';
+  constructor(
+    @InjectRepository(Skin)
+    private skinRepo: Repository<Skin>,
+    @InjectRepository(Collection)
+    private collectionRepo: Repository<Collection>,
+  ) {}
+
+  async create(dto: CreateSkinDto) {
+    const collection = await this.collectionRepo.findOneBy({ id: dto.collection });
+    if (!collection) {
+      throw new Error('Collection not found');
+    }
+    const skin = this.skinRepo.create({ ...dto, collection });
+    return this.skinRepo.save(skin);
   }
 
   findAll() {
-    return `This action returns all skin`;
+    return this.skinRepo.find({ relations: ['collection'] });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} skin`;
+    return this.skinRepo.findOne({ where: { id }, relations: ['collection'] });
   }
 
-  update(id: number, updateSkinDto: UpdateSkinDto) {
-    return `This action updates a #${id} skin`;
+  async update(id: number, dto: UpdateSkinDto) {
+    const updateData: any = { ...dto };
+
+    if (dto.collection) {
+      const collection = await this.collectionRepo.findOneBy({ id: dto.collection });
+      updateData.collection = collection;
+    }
+
+    await this.skinRepo.update(id, updateData);
+    return this.findOne(id);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} skin`;
+    return this.skinRepo.delete(id);
   }
 }

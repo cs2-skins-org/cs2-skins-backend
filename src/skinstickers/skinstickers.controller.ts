@@ -1,34 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { SkinstickersService } from './skinstickers.service';
-import { CreateSkinstickerDto } from './dto/create-skinsticker.dto';
-import { UpdateSkinstickerDto } from './dto/update-skinsticker.dto';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { SkinStickersService } from './skinstickers.service';
+import { CreateSkinStickerDto } from './dto/create-skinsticker.dto';
+import { UpdateSkinStickerDto } from './dto/update-skinsticker.dto';
 
-@Controller('skinstickers')
-export class SkinstickersController {
-  constructor(private readonly skinstickersService: SkinstickersService) {}
+@Controller('skin-stickers')
+export class SkinStickersController {
+  constructor(private readonly service: SkinStickersService) {}
 
   @Post()
-  create(@Body() createSkinstickerDto: CreateSkinstickerDto) {
-    return this.skinstickersService.create(createSkinstickerDto);
+  create(@Body() dto: CreateSkinStickerDto) {
+    return this.service.create(dto);
   }
 
   @Get()
   findAll() {
-    return this.skinstickersService.findAll();
+    return this.service.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.skinstickersService.findOne(+id);
+    return this.service.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSkinstickerDto: UpdateSkinstickerDto) {
-    return this.skinstickersService.update(+id, updateSkinstickerDto);
+  @Put(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateSkinStickerDto) {
+    return this.service.update(+id, dto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.skinstickersService.remove(+id);
+    return this.service.remove(+id);
   }
 }

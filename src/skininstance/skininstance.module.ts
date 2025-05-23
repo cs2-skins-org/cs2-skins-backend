@@ -1,9 +1,14 @@
 import { Module } from '@nestjs/common';
-import { SkininstanceService } from './skininstance.service';
-import { SkininstanceController } from './skininstance.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { SkinInstanceService } from './skininstance.service';
+import { SkinInstanceController } from './skininstance.controller';
+import { SkinInstance } from './entities/skininstance.entity';
+import { Skin } from '../skin/entities/skin.entity';
+import { User } from '../users/entities/user.entity';
 
 @Module({
-  controllers: [SkininstanceController],
-  providers: [SkininstanceService],
+  imports: [TypeOrmModule.forFeature([SkinInstance, Skin, User])],
+  controllers: [SkinInstanceController],
+  providers: [SkinInstanceService],
 })
-export class SkininstanceModule {}
+export class SkinInstanceModule {}

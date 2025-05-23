@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Collection } from './entities/collection.entity';
 import { CreateCollectionDto } from './dto/create-collection.dto';
 import { UpdateCollectionDto } from './dto/update-collection.dto';
 
 @Injectable()
 export class CollectionService {
-  create(createCollectionDto: CreateCollectionDto) {
-    return 'This action adds a new collection';
+  constructor(
+    @InjectRepository(Collection)
+    private collectionRepository: Repository<Collection>,
+  ) {}
+
+  create(dto: CreateCollectionDto) {
+    const collection = this.collectionRepository.create(dto);
+    return this.collectionRepository.save(collection);
   }
 
   findAll() {
-    return `This action returns all collection`;
+    return this.collectionRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} collection`;
+    return this.collectionRepository.findOneBy({ id });
   }
 
-  update(id: number, updateCollectionDto: UpdateCollectionDto) {
-    return `This action updates a #${id} collection`;
+  async update(id: number, dto: UpdateCollectionDto) {
+    await this.collectionRepository.update(id, dto);
+    return this.findOne(id);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} collection`;
+    return this.collectionRepository.delete(id);
   }
 }

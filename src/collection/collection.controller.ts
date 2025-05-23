@@ -1,15 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { CollectionService } from './collection.service';
 import { CreateCollectionDto } from './dto/create-collection.dto';
 import { UpdateCollectionDto } from './dto/update-collection.dto';
 
-@Controller('collection')
+@Controller('collections')
 export class CollectionController {
   constructor(private readonly collectionService: CollectionService) {}
 
   @Post()
-  create(@Body() createCollectionDto: CreateCollectionDto) {
-    return this.collectionService.create(createCollectionDto);
+  create(@Body() dto: CreateCollectionDto) {
+    return this.collectionService.create(dto);
   }
 
   @Get()
@@ -22,9 +22,9 @@ export class CollectionController {
     return this.collectionService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCollectionDto: UpdateCollectionDto) {
-    return this.collectionService.update(+id, updateCollectionDto);
+  @Put(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateCollectionDto) {
+    return this.collectionService.update(+id, dto);
   }
 
   @Delete(':id')

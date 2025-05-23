@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateSkinstickerDto } from './create-skinsticker.dto';
+import { CreateSkinStickerDto } from './create-skinsticker.dto';
 
-export class UpdateSkinstickerDto extends PartialType(CreateSkinstickerDto) {}
+export class UpdateSkinStickerDto extends PartialType(CreateSkinStickerDto) {}
