@@ -9,8 +9,7 @@ export class CreateTradeDto {
 
   @IsString()
   status: string;
-}
-export class CreateTradeDto {
-  sender: number;
-  receiver: number;
+
+  sender?: number;
+  receiver?: number;
 }
