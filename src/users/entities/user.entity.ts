@@ -33,6 +33,6 @@ export class User {
   receivedTrades: Trade[];
 
   @OneToMany(() => SkinInstance, instance => instance.owner)
-  skinInstances: SkinInstance[];
+skinInstances: SkinInstance[];
 
 }

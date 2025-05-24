@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'ty
 import { Collection } from '../../collection/entities/collection.entity';
 import { SkinInstance } from '../../skininstance/entities/skininstance.entity';
 import { weapon_type } from './weapon-type.enum';
+import { rarity } from './rarity.enum';
 
 @Entity()
 @Entity()
@@ -18,8 +19,11 @@ export class Skin {
   })
   weapon_type: weapon_type;
 
-  @Column()
-  rarity: string;
+  @Column({
+    type: 'enum',
+   enum: rarity,
+  })
+  rarity: rarity;
 
   @Column()
   image_path: string;
