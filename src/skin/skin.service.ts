@@ -8,6 +8,28 @@ import { Collection } from '../collection/entities/collection.entity';
 
 @Injectable()
 export class SkinService {
+  async createMany(createSkinDtos: CreateSkinDto[]) {
+  const skins: Skin[] = [];
+
+  for (const dto of createSkinDtos) {
+    const collection = await this.collectionRepo.findOneBy({ id: dto.collection });
+    if (!collection) {
+      console.warn(`Collection with ID ${dto.collection} not found. Skipping skin "${dto.name}".`);
+      continue;
+    }
+
+    const skin = this.skinRepo.create({
+      ...dto,
+      collection,
+      weapon_type: dto.weapon_type,
+      rarity: dto.rarity,
+    });
+
+    skins.push(skin);
+  }
+
+  return this.skinRepo.save(skins);
+}
   constructor(
     @InjectRepository(Skin)
     private skinRepo: Repository<Skin>,

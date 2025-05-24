@@ -41,6 +41,7 @@ export enum weapon_type {
   R8 = 'R8 Revolver',
 
   // Knives (generics — skins apply over base)
+  KUKRI = 'Kukri Knife',
   BAYONET = 'Bayonet',
   KARAMBIT = 'Karambit',
   M9_BAYONET = 'M9 Bayonet',
@@ -56,4 +57,5 @@ export enum weapon_type {
   TACTICAL = 'Tactical Knife',
   PARACORD = 'Paracord Knife',
   TALON = 'Talon Knife',
+  ZEUS = 'Zeus x27',
 }
