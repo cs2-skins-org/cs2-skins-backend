@@ -3,7 +3,7 @@ import { Trade } from '../../trade/entities/trade.entity';
 import { SkinInstance } from '../../skininstance/entities/skininstance.entity';
 
 
-@Entity()
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
