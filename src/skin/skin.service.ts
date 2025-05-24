@@ -16,13 +16,21 @@ export class SkinService {
   ) {}
 
   async create(dto: CreateSkinDto) {
-    const collection = await this.collectionRepo.findOneBy({ id: dto.collection });
-    if (!collection) {
-      throw new Error('Collection not found');
-    }
-    const skin = this.skinRepo.create({ ...dto, collection });
+  const collection = await this.collectionRepo.findOneBy({ id: dto.collection });
+  if (!collection) {
+    throw new Error('Collection not found');
+  }
+
+  const skin = this.skinRepo.create({
+    ...dto,
+    collection,
+    weapon_type: dto.weapon_type,
+    rarity: dto.rarity,
+  });
+
     return this.skinRepo.save(skin);
   }
+
 
   findAll() {
     return this.skinRepo.find({ relations: ['collection'] });
