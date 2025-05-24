@@ -1,9 +1,7 @@
 export enum Wear {
-  CONSUMER_GRADE = 'Consumer Grade',
-  INDUSTRIAL_GRADE = 'Industrial Grade',
-  MIL_SPEC = 'Mil-Spec',
-  RESTRICTED = 'Restricted',
-  CLASSIFIED = 'Classified',
-  COVERT = 'Covert',
-  CONTRABAND = 'Contraband',
+  FACTORY_NEW = 'factory new',
+  MINIMAL_WEAR = 'minimal wear',
+  FIELD_TESTED = 'field tested',
+  WELL_WORN = 'well worn',
+  BATTLE_SCARRED = 'battle scarred',
 }
