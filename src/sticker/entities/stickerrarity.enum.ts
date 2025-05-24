@@ -1,7 +1,7 @@
 export enum StickerRarity {
   BLUE = 'blue',
-  PURPLE = 'PURPLE',
-  PINK = 'PINK',
+  PURPLE = 'purple',
+  PINK = 'pink',
   RED = 'red',
   GOLD = 'contraband',
 }
