@@ -12,6 +12,7 @@ import { SkinInstanceModule } from './skininstance/skininstance.module';
 import { TradeItemsModule } from './tradeitems/tradeitems.module';
 import { TradeModule } from './trade/trade.module';
 import { CollectionModule } from './collection/collection.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { CollectionModule } from './collection/collection.module';
     TradeItemsModule,
     TradeModule,
     CollectionModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
