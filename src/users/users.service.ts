@@ -4,9 +4,13 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+  import * as bcrypt from 'bcrypt';
+
+
 
 @Injectable()
 export class UsersService {
+    private users: User[] = [];
   constructor(
     @InjectRepository(User)
     private readonly repo: Repository<User>,
@@ -33,4 +37,25 @@ export class UsersService {
   remove(id: number) {
     return this.repo.delete(id);
   }
+
+async createUser(email: string, password_hash: string, username: string) {
+  const user = this.repo.create({
+    email,
+    username,
+    password_hash, 
+    steam_id: '',
+    profile_url: '',
+  });
+  return this.repo.save(user);
 }
+
+
+async findByEmail(email: string) {
+  return this.repo.findOne({ where: { email } });
+}
+
+
+
+  
+}
+
