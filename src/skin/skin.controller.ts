@@ -12,6 +12,11 @@ export class SkinController {
     return this.skinService.create(createSkinDto);
   }
 
+  @Post('bulk')
+  createBulk(@Body() createSkinDtos: CreateSkinDto[]) {
+    return this.skinService.createMany(createSkinDtos);
+  }
+
   @Get()
   findAll() {
     return this.skinService.findAll();

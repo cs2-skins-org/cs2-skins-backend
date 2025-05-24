@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { SkinSticker } from '../../skinstickers/entities/skinsticker.entity';
+import { StickerRarity } from './stickerrarity.enum';
 
 @Entity()
 export class Sticker {
@@ -9,8 +10,11 @@ export class Sticker {
   @Column()
   name: string;
 
-  @Column()
-  rarity: string;
+   @Column({
+    type: 'enum',
+    enum: StickerRarity,
+  })
+  rarity: StickerRarity;
 
   @Column()
   image_path: string;
