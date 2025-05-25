@@ -23,6 +23,15 @@ export class SkinInstance {
   @Column({ default: false })
   is_souvenir: boolean;
 
+  @Column({ default: false })
+  is_listed_for_sale: boolean;
+
+  @Column({ default: false })
+  is_traded_away: boolean;
+
+  @Column({ nullable: true })
+  custom_name: string;
+
   @Column({
     type: 'enum',
     enum: Wear,
@@ -34,4 +43,7 @@ export class SkinInstance {
 
   @Column('float')
   price: number;
+
+  @CreateDateColumn()
+  acquired_at: Date;
 }
