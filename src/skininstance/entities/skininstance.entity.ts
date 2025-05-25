@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne,CreateDateColumn} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
 import { Skin } from '../../skin/entities/skin.entity';
 import { User } from '../../users/entities/user.entity';
 import { Wear } from './wear.enum';
@@ -12,7 +12,7 @@ export class SkinInstance {
   skin: Skin;
 
   @ManyToOne(() => User, user => user.skinInstances)
-owner: User;
+  owner: User;
 
   @Column('float')
   float_value: number;
@@ -31,4 +31,7 @@ owner: User;
 
   @Column({ type: 'timestamp', nullable: true })
   trade_locked_until: Date;
+
+  @Column('float')
+  price: number;
 }

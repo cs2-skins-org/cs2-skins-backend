@@ -19,6 +19,9 @@ export class Sticker {
   @Column()
   image_path: string;
 
+  @Column('float')
+  price: number;
+
   @OneToMany(() => SkinSticker, (ss) => ss.sticker)
   appliedTo: SkinSticker[];
 }
