@@ -2,7 +2,6 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Trade } from '../../trade/entities/trade.entity';
 import { SkinInstance } from '../../skininstance/entities/skininstance.entity';
 
-
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
@@ -26,6 +25,9 @@ export class User {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
+  @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
+  balance: number;
+
   @OneToMany(() => Trade, (trade) => trade.sender)
   sentTrades: Trade[];
 
@@ -33,6 +35,5 @@ export class User {
   receivedTrades: Trade[];
 
   @OneToMany(() => SkinInstance, instance => instance.owner)
-skinInstances: SkinInstance[];
-
+  skinInstances: SkinInstance[];
 }

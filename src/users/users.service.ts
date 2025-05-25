@@ -17,9 +17,13 @@ export class UsersService {
   ) {}
 
   create(dto: CreateUserDto) {
-    const user = this.repo.create(dto);
-    return this.repo.save(user);
+  const user = this.repo.create({
+    ...dto,
+    balance: dto.balance ?? 0, // Ensure default value
+  });
+  return this.repo.save(user);
   }
+
 
   findAll() {
     return this.repo.find({ relations: ['sentTrades', 'receivedTrades', 'inventory'] });
@@ -38,16 +42,18 @@ export class UsersService {
     return this.repo.delete(id);
   }
 
-async createUser(email: string, password_hash: string, username: string) {
-  const user = this.repo.create({
-    email,
-    username,
-    password_hash, 
-    steam_id: '',
-    profile_url: '',
-  });
-  return this.repo.save(user);
-}
+  async createUser(email: string, password_hash: string, username: string) {
+    const user = this.repo.create({
+      email,
+      username,
+      password_hash,
+      steam_id: '',
+      profile_url: '',
+      balance: 0, // default balance
+    });
+    return this.repo.save(user);
+  }
+
 
 
 async findByEmail(email: string) {

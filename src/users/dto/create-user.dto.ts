@@ -4,4 +4,5 @@ export class CreateUserDto {
   password_hash: string;
   steam_id?: string;
   profile_url?: string;
+  balance?: number;
 }
