@@ -1,7 +1,7 @@
-import { Wear } from '../entities/wear.enum';
+import { Wear } from '../../skininstance/entities/wear.enum';
 
 export class CreateSkinInstanceDto {
-  skin: number;
+  skin: number; 
   owner: number;
   float_value: number;
   is_stattrak?: boolean;

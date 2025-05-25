@@ -25,7 +25,7 @@ export class User {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
+  @Column({ type: 'double precision', default: 0 })
   balance: number;
 
   @OneToMany(() => Trade, (trade) => trade.sender)

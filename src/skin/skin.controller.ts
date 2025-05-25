@@ -41,5 +41,4 @@ export class SkinController {
   findByName(@Param('name') name: string) {
     return this.skinService.findByName(name);
   }
-
 }

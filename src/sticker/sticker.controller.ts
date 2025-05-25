@@ -12,22 +12,27 @@ export class StickerController {
     return this.service.create(dto);
   }
 
-  @Get()
+  @Get('getAllStickers')
   findAll() {
     return this.service.findAll();
   }
 
-  @Get(':id')
+  @Get('findStickerById/:id')
   findOne(@Param('id') id: string) {
     return this.service.findOne(+id);
   }
 
-  @Put(':id')
+  @Get('findStickerByName/:name')
+  findStickerByName(@Param('name') name: string) {
+    return this.service.findByName(name);
+  }
+
+  @Put('updateStickerById/:id')
   update(@Param('id') id: string, @Body() dto: UpdateStickerDto) {
     return this.service.update(+id, dto);
   }
 
-  @Delete(':id')
+  @Delete('removeStickerById/:id')
   remove(@Param('id') id: string) {
     return this.service.remove(+id);
   }
