@@ -32,22 +32,18 @@ export class UsersController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.service.remove(+id);
+    return this.usersService.remove(+id); // ✅ Fixed: was this.service
   }
 
-@UseGuards(JwtAuthGuard)
-@Get('balance')
-async getBalance(@Request() req) {
-  const user = await this.service.findOne(req.user.sub);
+  @UseGuards(JwtAuthGuard)
+  @Get('balance')
+  async getBalance(@Request() req) {
+    const user = await this.usersService.findOne(req.user.sub); // ✅ Fixed: was this.service
 
-  if (!user) {
-    throw new NotFoundException('User not found');
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return { balance: user.balance };
   }
-
-  return { balance: user.balance };
-}
-
-
-
-
 }
