@@ -9,4 +9,5 @@ export class CreateSkinInstanceDto {
   is_souvenir?: boolean;
   wear: Wear;
   trade_locked_until?: Date;
+  price: number;
 }

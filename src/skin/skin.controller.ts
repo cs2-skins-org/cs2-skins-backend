@@ -17,23 +17,29 @@ export class SkinController {
     return this.skinService.createMany(createSkinDtos);
   }
 
-  @Get()
+  @Get('findAll')
   findAll() {
     return this.skinService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get('findById/:id')
+  findById(@Param('id') id: string) {
     return this.skinService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   update(@Param('id') id: string, @Body() updateSkinDto: UpdateSkinDto) {
     return this.skinService.update(+id, updateSkinDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   remove(@Param('id') id: string) {
     return this.skinService.remove(+id);
   }
+
+  @Get('searchSkinsByName/:name')
+  findByName(@Param('name') name: string) {
+    return this.skinService.findByName(name);
+  }
+
 }

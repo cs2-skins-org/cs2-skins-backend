@@ -53,7 +53,6 @@ export class SkinService {
     return this.skinRepo.save(skin);
   }
 
-
   findAll() {
     return this.skinRepo.find({ relations: ['collection'] });
   }
@@ -77,4 +76,16 @@ export class SkinService {
   remove(id: number) {
     return this.skinRepo.delete(id);
   }
+
+  async findByName(name: string) {
+  return this.skinRepo.find({
+    where: {
+      name: name,
+    },
+    relations: ['collection'],
+  });
+  }
+
+
+
 }
