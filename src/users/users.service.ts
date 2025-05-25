@@ -4,7 +4,8 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-  import * as bcrypt from 'bcrypt';
+import { TopUpUserDto } from './dto/topup-user.dto';
+import * as bcrypt from 'bcrypt';
 
 
 
@@ -23,7 +24,6 @@ export class UsersService {
   });
   return this.repo.save(user);
   }
-
 
   findAll() {
     return this.repo.find({ relations: ['sentTrades', 'receivedTrades', 'inventory'] });
@@ -56,12 +56,17 @@ export class UsersService {
 
 
 
-async findByEmail(email: string) {
-  return this.repo.findOne({ where: { email } });
-}
+  async findByEmail(email: string) {
+    return this.repo.findOne({ where: { email } });
+  }
+  
+  async topUpBalance(userId: number, dto: TopUpUserDto) {
+  const user = await this.repo.findOneBy({ id: userId });
+  if (!user) throw new Error('User not found');
 
-
-
+  user.balance += dto.amount;
+  return this.repo.save(user);
+  }
   
 }
 

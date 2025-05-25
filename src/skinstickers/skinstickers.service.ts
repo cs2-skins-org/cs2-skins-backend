@@ -64,4 +64,6 @@ export class SkinStickersService {
   remove(id: number) {
     return this.repo.delete(id);
   }
+
+  
 }
