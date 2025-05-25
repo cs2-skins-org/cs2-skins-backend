@@ -1,3 +1,4 @@
+//app.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -13,7 +14,7 @@ import { TradeItemsModule } from './tradeitems/tradeitems.module';
 import { TradeModule } from './trade/trade.module';
 import { CollectionModule } from './collection/collection.module';
 import { AuthModule } from './auth/auth.module';
-import { InventoryModule } from './inventory/inventory.module';
+// import { InventoryModule } from './inventory/inventory.module';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { InventoryModule } from './inventory/inventory.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '123',
+      password: '12345',
       database: 'cs2-skins-db',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true, // Use only in development
@@ -36,7 +37,7 @@ import { InventoryModule } from './inventory/inventory.module';
     TradeModule,
     CollectionModule,
     AuthModule,
-    InventoryModule,
+    // InventoryModule,
     
   ],
   controllers: [AppController],
