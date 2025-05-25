@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne,CreateDateColumn} from 'typeorm';
 import { Skin } from '../../skin/entities/skin.entity';
 import { User } from '../../users/entities/user.entity';
 import { Wear } from './wear.enum';
