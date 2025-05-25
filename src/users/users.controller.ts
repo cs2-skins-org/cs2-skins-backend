@@ -32,13 +32,13 @@ export class UsersController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id); // ✅ Fixed: was this.service
+    return this.usersService.remove(+id); 
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('balance')
   async getBalance(@Request() req) {
-    const user = await this.usersService.findOne(req.user.sub); // ✅ Fixed: was this.service
+    const user = await this.usersService.findOne(req.user.sub); 
 
     if (!user) {
       throw new NotFoundException('User not found');
