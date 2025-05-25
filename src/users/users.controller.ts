@@ -1,8 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from "@nestjs/common";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { UsersService } from "./users.service";
-import { UpdateUserDto } from "./dto/update-user.dto";
-import { TopUpUserDto } from "./dto/topup-user.dto";
+import { Controller, Get, Post, Body, Param, Delete, Put, NotFoundException } from '@nestjs/common';
+import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UseGuards, Request } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { Request as ExpressRequest } from 'express';
+
+
 
 @Controller('users')
 export class UsersController {
@@ -30,11 +34,22 @@ export class UsersController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+    return this.service.remove(+id);
   }
 
-  @Post(':id/top-up')
-  async topUpBalance(@Param('id') id: number, @Body() dto: TopUpUserDto) {
-    return this.usersService.topUpBalance(Number(id), dto);
+@UseGuards(JwtAuthGuard)
+@Get('balance')
+async getBalance(@Request() req) {
+  const user = await this.service.findOne(req.user.sub);
+
+  if (!user) {
+    throw new NotFoundException('User not found');
   }
+
+  return { balance: user.balance };
+}
+
+
+
+
 }

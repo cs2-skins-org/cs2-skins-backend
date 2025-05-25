@@ -15,6 +15,7 @@ import { TradeModule } from './trade/trade.module';
 import { CollectionModule } from './collection/collection.module';
 import { AuthModule } from './auth/auth.module';
 // import { InventoryModule } from './inventory/inventory.module';
+import { MarketplaceModule } from './marketplace/marketplace.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { AuthModule } from './auth/auth.module';
     TradeModule,
     CollectionModule,
     AuthModule,
+    MarketplaceModule,
     // InventoryModule,
     
   ],

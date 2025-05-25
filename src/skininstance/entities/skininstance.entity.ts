@@ -47,9 +47,17 @@ export class SkinInstance {
   @Column({ type: 'timestamp', nullable: true })
   trade_locked_until: Date;
 
-  @Column('float')
-  price: number;
+
+  @Column({ type: 'float', nullable: true })
+  price: number | null;
 
   @CreateDateColumn()
   acquired_at: Date;
+
+
+
+
+
+
+
 }
