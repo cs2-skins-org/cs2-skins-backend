@@ -23,7 +23,7 @@ import { AuthModule } from './auth/auth.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '12345',
+      password: '123',
       database: 'cs2-skins-db',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true, // Use only in development
