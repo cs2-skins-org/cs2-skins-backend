@@ -1,5 +1,4 @@
-// Make sure the path is correct and the file exists; adjust the path if necessary
-import { Wear } from '../../skininstance/entities/wear.enum';
+import { Wear } from '../entities/wear.enum';
 
 export class CreateSkinInstanceDto {
   skin: number;
@@ -7,6 +6,9 @@ export class CreateSkinInstanceDto {
   float_value: number;
   is_stattrak?: boolean;
   is_souvenir?: boolean;
+  is_listed_for_sale?: boolean;
+  is_traded_away?: boolean;
+  custom_name?: string;
   wear: Wear;
   trade_locked_until?: Date;
   price: number;
