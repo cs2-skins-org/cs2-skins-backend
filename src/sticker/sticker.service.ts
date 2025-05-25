@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { Sticker } from './entities/sticker.entity';
 import { CreateStickerDto } from './dto/create-sticker.dto';
 import { UpdateStickerDto } from './dto/update-sticker.dto';
@@ -23,6 +23,14 @@ export class StickerService {
 
   findOne(id: number) {
     return this.repo.findOneBy({ id });
+  }
+
+  async findByName(name: string) {
+    return this.repo.find({
+      where: {
+        name: ILike(`%${name}%`),
+      },
+    });
   }
 
   async update(id: number, dto: UpdateStickerDto) {
