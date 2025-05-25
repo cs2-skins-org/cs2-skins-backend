@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SkinInstance } from './entities/skininstance.entity';
@@ -11,50 +11,64 @@ import { User } from '../users/entities/user.entity';
 export class SkinInstanceService {
   constructor(
     @InjectRepository(SkinInstance)
-    private readonly instanceRepo: Repository<SkinInstance>,
+    private skinInstanceRepo: Repository<SkinInstance>,
+
     @InjectRepository(Skin)
-    private readonly skinRepo: Repository<Skin>,
+    private skinRepo: Repository<Skin>,
+
     @InjectRepository(User)
-    private readonly userRepo: Repository<User>,
+    private userRepo: Repository<User>
   ) {}
 
-  async create(dto: CreateSkinInstanceDto) {
+  async create(dto: CreateSkinInstanceDto): Promise<SkinInstance> {
     const skin = await this.skinRepo.findOneBy({ id: dto.skin });
+    if (!skin) throw new NotFoundException('Skin not found');
+
     const owner = await this.userRepo.findOneBy({ id: dto.owner });
+    if (!owner) throw new NotFoundException('Owner not found');
 
-    const instance = this.instanceRepo.create({
+    const instance = this.skinInstanceRepo.create({
       ...dto,
-      skin: skin ? skin : undefined,
-      owner: owner ? owner : undefined,
+      skin,
+      owner,
     });
-
-    return this.instanceRepo.save(instance);
+    return this.skinInstanceRepo.save(instance);
   }
 
-  findAll() {
-    return this.instanceRepo.find({ relations: ['skin', 'owner'] });
+  findAll(): Promise<SkinInstance[]> {
+    return this.skinInstanceRepo.find({ relations: ['skin', 'owner'] });
   }
 
-  findOne(id: number) {
-    return this.instanceRepo.findOne({ where: { id }, relations: ['skin', 'owner'] });
+  async findOne(id: number): Promise<SkinInstance> {
+    const instance = await this.skinInstanceRepo.findOne({
+      where: { id },
+      relations: ['skin', 'owner'],
+    });
+    if (!instance) throw new NotFoundException('Skin instance not found');
+    return instance;
   }
 
-  async update(id: number, dto: UpdateSkinInstanceDto) {
-    const updateData: any = { ...dto };
+  async update(id: number, dto: UpdateSkinInstanceDto): Promise<SkinInstance> {
+    const instance = await this.findOne(id);
 
     if (dto.skin) {
-      updateData.skin = await this.skinRepo.findOneBy({ id: dto.skin });
+      const skin = await this.skinRepo.findOneBy({ id: dto.skin });
+      if (!skin) throw new NotFoundException('Skin not found');
+      instance.skin = skin;
     }
 
     if (dto.owner) {
-      updateData.owner = await this.userRepo.findOneBy({ id: dto.owner });
+      const owner = await this.userRepo.findOneBy({ id: dto.owner });
+      if (!owner) throw new NotFoundException('Owner not found');
+      instance.owner = owner;
     }
 
-    await this.instanceRepo.update(id, updateData);
-    return this.findOne(id);
+    Object.assign(instance, dto);
+    return this.skinInstanceRepo.save(instance);
   }
 
-  remove(id: number) {
-    return this.instanceRepo.delete(id);
+  async remove(id: number): Promise<void> {
+    const instance = await this.findOne(id);
+    await this.skinInstanceRepo.remove(instance);
   }
 }

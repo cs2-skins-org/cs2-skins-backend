@@ -1,3 +1,4 @@
+//app.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -22,7 +23,7 @@ import { AuthModule } from './auth/auth.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '123',
+      password: '12345',
       database: 'cs2-skins-db',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true, // Use only in development
