@@ -16,10 +16,11 @@ import { SkinInstance } from './entities/skininstance.entity';
 export class SkinInstanceController {
   constructor(private readonly skinInstanceService: SkinInstanceService) {}
 
-  @Post()
-  create(@Body() dto: CreateSkinInstanceDto) {
-    return this.skinInstanceService.create(dto);
-  }
+  @Post('bulkCreateSkinInstances')
+  createMany(@Body() dtos: CreateSkinInstanceDto[]) {
+    return this.skinInstanceService.createMany(dtos);
+  } 
+
 
   @Get()
   findAll(): Promise<SkinInstance[]> {

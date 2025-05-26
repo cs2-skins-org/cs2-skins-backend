@@ -35,6 +35,26 @@ export class SkinInstanceService {
     return this.skinInstanceRepo.save(instance);
   }
 
+  async createMany(dtos: CreateSkinInstanceDto[]): Promise<SkinInstance[]> {
+    const instances: SkinInstance[] = [];
+    for (const dto of dtos) {
+      const skin = await this.skinRepo.findOneBy({ id: dto.skin });
+      if (!skin) throw new NotFoundException('Skin not found');
+
+      const owner = await this.userRepo.findOneBy({ id: dto.owner });
+      if (!owner) throw new NotFoundException('Owner not found');
+
+      const instance = this.skinInstanceRepo.create({
+        ...dto,
+        skin,
+        owner,
+      });
+      instances.push(instance);
+    }
+    return this.skinInstanceRepo.save(instances);
+  }
+
+
   findAll(): Promise<SkinInstance[]> {
     return this.skinInstanceRepo.find({ relations: ['skin', 'owner'] });
   }
