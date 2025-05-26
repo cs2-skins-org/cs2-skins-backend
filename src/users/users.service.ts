@@ -7,30 +7,35 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { TopUpUserDto } from './dto/topup-user.dto';
 import * as bcrypt from 'bcrypt';
 
-
-
 @Injectable()
 export class UsersService {
-    private users: User[] = [];
+  private users: User[] = [];
   constructor(
     @InjectRepository(User)
     private readonly repo: Repository<User>,
   ) {}
 
   create(dto: CreateUserDto) {
-  const user = this.repo.create({
-    ...dto,
-    balance: dto.balance ?? 0, // Ensure default value
-  });
-  return this.repo.save(user);
+    const user = this.repo.create({
+      ...dto,
+      balance: dto.balance ?? 0, // Ensure default value
+    });
+    return this.repo.save(user);
   }
 
   findAll() {
-    return this.repo.find({ relations: ['sentTrades', 'receivedTrades', 'inventory'] });
+    // Fixed: changed 'inventory' to 'skinInstances'
+    return this.repo.find({ 
+      relations: ['sentTrades', 'receivedTrades', 'skinInstances'] 
+    });
   }
 
   findOne(id: number) {
-    return this.repo.findOne({ where: { id }, relations: ['sentTrades', 'receivedTrades', 'inventory'] });
+    // Fixed: changed 'inventory' to 'skinInstances'
+    return this.repo.findOne({ 
+      where: { id }, 
+      relations: ['sentTrades', 'receivedTrades', 'skinInstances'] 
+    });
   }
 
   async update(id: number, dto: UpdateUserDto) {
@@ -54,19 +59,40 @@ export class UsersService {
     return this.repo.save(user);
   }
 
-
-
   async findByEmail(email: string) {
     return this.repo.findOne({ where: { email } });
   }
   
   async topUpBalance(userId: number, dto: TopUpUserDto) {
-  const user = await this.repo.findOneBy({ id: userId });
-  if (!user) throw new Error('User not found');
+    console.log('=== TOPUP SERVICE DEBUG ===');
+    console.log('User ID received:', userId, typeof userId);
+    console.log('DTO received:', dto);
+    console.log('Amount:', dto.amount, typeof dto.amount);
+    
+    // Find user without relations for simpler query
+    const user = await this.repo.findOneBy({ id: userId });
+    console.log('User found:', user ? `Yes (ID: ${user.id}, Balance: ${user.balance})` : 'No');
+    
+    if (!user) {
+      console.log('ERROR: User not found!');
+      throw new Error(`User with ID ${userId} not found`);
+    }
 
-  user.balance += dto.amount;
-  return this.repo.save(user);
+    const oldBalance = Number(user.balance);
+    const addAmount = Number(dto.amount);
+    const newBalance = oldBalance + addAmount;
+    
+    console.log('Balance calculation:');
+    console.log('  Old balance:', oldBalance);
+    console.log('  Adding:', addAmount);
+    console.log('  New balance:', newBalance);
+    
+    user.balance = newBalance;
+    
+    const savedUser = await this.repo.save(user);
+    console.log('User saved successfully, new balance:', savedUser.balance);
+    console.log('========================');
+    
+    return savedUser;
   }
-  
 }
-

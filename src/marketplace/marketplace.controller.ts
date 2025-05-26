@@ -22,6 +22,13 @@ export class MarketplaceController {
 
   @Post('list')
   list(@Body() body: { skinInstanceId: number; price: number }, @Request() req) {
+    // Add debugging
+    console.log('=== DEBUG LIST ENDPOINT ===');
+    console.log('Request user:', req.user);
+    console.log('Body:', body);
+    console.log('User ID (sub):', req.user?.sub);
+    console.log('===========================');
+    
     return this.service.listSkinForSale(req.user.sub, body.skinInstanceId, body.price);
   }
 
