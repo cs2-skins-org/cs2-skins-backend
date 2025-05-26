@@ -38,6 +38,27 @@ export class SkinStickersService {
     return this.repo.save(skinSticker);
   }
 
+  async createMany(dtos: CreateSkinStickerDto[]) {
+    const skinStickers = [];
+    for (const dto of dtos) {
+      const skin_instance = await this.skinInstanceRepo.findOneBy({ id: dto.skin_instance });
+      const sticker = await this.stickerRepo.findOneBy({ id: dto.sticker });
+      if (!skin_instance) {
+        throw new Error('SkinInstance not found');
+      }
+      if (!sticker) {
+        throw new Error('Sticker not found');
+      }
+      skinStickers.push(this.repo.create({
+        ...dto,
+        skin_instance,
+        sticker,
+      }));
+    }
+    return this.repo.save(skinStickers);
+  }
+
+
   findAll() {
     return this.repo.find({ relations: ['skin_instance', 'sticker'] });
   }

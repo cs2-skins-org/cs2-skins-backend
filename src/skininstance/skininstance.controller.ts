@@ -41,4 +41,11 @@ export class SkinInstanceController {
   remove(@Param('id') id: string) {
     return this.skinInstanceService.remove(+id);
   }
+
+  @Get('findByName/:name')
+  findByName(@Param('name') name: string) {
+    return this.skinInstanceService.findByName(name);
+  }
+
+
 }
