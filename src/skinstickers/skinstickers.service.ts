@@ -6,6 +6,7 @@ import { CreateSkinStickerDto } from './dto/create-skinsticker.dto';
 import { UpdateSkinStickerDto } from './dto/update-skinsticker.dto';
 import { SkinInstance } from '../skininstance/entities/skininstance.entity';
 import { Sticker } from '../sticker/entities/sticker.entity';
+import { ILike } from 'typeorm';
 
 @Injectable()
 export class SkinStickersService {
@@ -84,6 +85,17 @@ export class SkinStickersService {
 
   remove(id: number) {
     return this.repo.delete(id);
+  }
+
+  async findByStickerName(name: string): Promise<SkinSticker[]> {
+    return this.repo.find({
+      where: {
+        sticker: {
+          name: ILike(`%${name}%`)
+        }
+      },
+    relations: ['skin_instance', 'sticker']
+    });
   }
 
   
