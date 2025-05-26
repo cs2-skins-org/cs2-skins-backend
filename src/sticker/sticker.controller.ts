@@ -7,10 +7,11 @@ import { UpdateStickerDto } from './dto/update-sticker.dto';
 export class StickerController {
   constructor(private readonly service: StickerService) {}
 
-  @Post()
-  create(@Body() dto: CreateStickerDto) {
-    return this.service.create(dto);
+  @Post('bulkCreateStickers')
+  createMany(@Body() dtos: CreateStickerDto[]) {
+    return this.service.createMany(dtos);
   }
+
 
   @Get('getAllStickers')
   findAll() {

@@ -12,10 +12,11 @@ export class StickerService {
     private readonly repo: Repository<Sticker>,
   ) {}
 
-  create(dto: CreateStickerDto) {
-    const sticker = this.repo.create(dto);
-    return this.repo.save(sticker);
-  }
+  async createMany(dtos: CreateStickerDto[]) {
+  const stickers = dtos.map(dto => this.repo.create(dto));
+  return this.repo.save(stickers);
+}
+
 
   findAll() {
     return this.repo.find();
