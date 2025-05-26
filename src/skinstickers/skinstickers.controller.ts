@@ -32,4 +32,10 @@ export class SkinStickersController {
   remove(@Param('id') id: string) {
     return this.service.remove(+id);
   }
+
+  @Get('findByStickerName/:name')
+  findByStickerName(@Param('name') name: string) {
+    return this.service.findByStickerName(name);
+  }
+
 }
