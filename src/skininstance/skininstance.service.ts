@@ -6,6 +6,7 @@ import { CreateSkinInstanceDto } from './dto/create-skininstance.dto';
 import { UpdateSkinInstanceDto } from './dto/update-skininstance.dto';
 import { Skin } from '../skin/entities/skin.entity';
 import { User } from '../users/entities/user.entity';
+import { ILike } from 'typeorm';
 
 @Injectable()
 export class SkinInstanceService {
@@ -91,4 +92,19 @@ export class SkinInstanceService {
     const instance = await this.findOne(id);
     await this.skinInstanceRepo.remove(instance);
   }
+
+  
+
+  async findByName(name: string): Promise<SkinInstance[]> {
+    return this.skinInstanceRepo.find({
+      where: {
+        skin: {
+          name: ILike(`%${name}%`),
+        },
+      },
+      relations: ['skin', 'owner'],
+    });
+  }
+
+
 }

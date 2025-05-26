@@ -11,7 +11,7 @@ export class StickerService {
     @InjectRepository(Sticker)
     private readonly repo: Repository<Sticker>,
   ) {}
-
+  
   async createMany(dtos: CreateStickerDto[]) {
   const stickers = dtos.map(dto => this.repo.create(dto));
   return this.repo.save(stickers);
