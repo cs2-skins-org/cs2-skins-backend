@@ -7,10 +7,11 @@ import { UpdateSkinStickerDto } from './dto/update-skinsticker.dto';
 export class SkinStickersController {
   constructor(private readonly service: SkinStickersService) {}
 
-  @Post()
-  create(@Body() dto: CreateSkinStickerDto) {
-    return this.service.create(dto);
+  @Post('bulkSkinStickers')
+  createMany(@Body() dtos: CreateSkinStickerDto[]) {
+    return this.service.createMany(dtos);
   }
+
 
   @Get()
   findAll() {

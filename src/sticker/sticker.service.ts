@@ -15,7 +15,7 @@ export class StickerService {
   async createMany(dtos: CreateStickerDto[]) {
   const stickers = dtos.map(dto => this.repo.create(dto));
   return this.repo.save(stickers);
-}
+  }
 
 
   findAll() {
