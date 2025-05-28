@@ -24,8 +24,8 @@ import { MarketplaceModule } from './marketplace/marketplace.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'cs2password',
-      database: 'cs2_skins_db',
+      password: '123',
+      database: 'cs2-skins-db',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true, // Use only in development
     }),
