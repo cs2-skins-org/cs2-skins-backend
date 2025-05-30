@@ -106,5 +106,19 @@ export class SkinInstanceService {
     });
   }
 
+  async findByCollectionId(collectionId: number): Promise<SkinInstance[]> {
+    return this.skinInstanceRepo.find({
+      relations: ['skin', 'skin.collection', 'owner'],
+      where: {
+        skin: {
+          collection: {
+            id: collectionId,
+          },
+        },
+      },
+    });
+  }
+
+
 
 }

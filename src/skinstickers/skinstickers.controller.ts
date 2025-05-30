@@ -37,5 +37,4 @@ export class SkinStickersController {
   findByStickerName(@Param('name') name: string) {
     return this.service.findByStickerName(name);
   }
-
 }

@@ -47,5 +47,12 @@ export class SkinInstanceController {
     return this.skinInstanceService.findByName(name);
   }
 
+@Get('by-collection/:id')
+findByCollection(@Param('id') id: string) {
+  return this.skinInstanceService.findByCollectionId(+id);
+}
+
+
+
 
 }
