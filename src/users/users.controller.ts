@@ -10,17 +10,28 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  /**
+   * Create a new user.
+   * @param dto - Data for the new user.
+   */
   @Post()
   create(@Body() dto: CreateUserDto) {
     return this.usersService.create(dto);
   }
 
+  /**
+   * Get a list of all users.
+   */
   @Get()
   findAll() {
     return this.usersService.findAll();
   }
 
-  // CRITICAL: Specific routes MUST come before parameterized routes
+  /**
+   * Get the balance of the currently authenticated user.
+   * Requires JWT authentication.
+   * @param req - The request containing the JWT user object.
+   */
   @UseGuards(JwtAuthGuard)
   @Get('balance')
   async getBalance(@Request() req: any) {
@@ -52,6 +63,12 @@ export class UsersController {
     }
   }
 
+  /**
+   * Top up the balance of the currently authenticated user.
+   * Requires JWT authentication.
+   * @param req - The request containing the JWT user object.
+   * @param dto - Top-up amount data.
+   */
   @UseGuards(JwtAuthGuard)
   @Post('topup')
   async topUp(@Request() req: any, @Body() dto: TopUpUserDto) {
@@ -81,17 +98,29 @@ export class UsersController {
     }
   }
 
-  // Parameterized routes MUST come after specific routes
+  /**
+   * Get a user by ID.
+   * @param id - The ID of the user to retrieve.
+   */
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(+id);
   }
 
+  /**
+   * Update a user by ID.
+   * @param id - The ID of the user to update.
+   * @param dto - Updated user data.
+   */
   @Put(':id')
   update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
     return this.usersService.update(+id, dto);
   }
 
+  /**
+   * Delete a user by ID.
+   * @param id - The ID of the user to delete.
+   */
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);

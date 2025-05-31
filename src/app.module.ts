@@ -1,10 +1,10 @@
-//app.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+// Importing feature modules
 import { UsersModule } from './users/users.module';
 import { SkinModule } from './skin/skin.module';
 import { SkinStickersModule } from './skinstickers/skinstickers.module';
@@ -19,6 +19,7 @@ import { MarketplaceModule } from './marketplace/marketplace.module';
 
 @Module({
   imports: [
+    // TypeORM database connection configuration
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -26,9 +27,10 @@ import { MarketplaceModule } from './marketplace/marketplace.module';
       username: 'postgres',
       password: '123',
       database: 'cs2-skins-db',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true, // Use only in development
+      entities: [__dirname + '/**/*.entity{.ts,.js}'], // Load all entities automatically
+      synchronize: true, // Use only in development - auto-generates tables
     }),
+    // Registering application modules
     UsersModule,
     SkinModule,
     SkinStickersModule,
@@ -40,9 +42,8 @@ import { MarketplaceModule } from './marketplace/marketplace.module';
     AuthModule,
     MarketplaceModule,
     // InventoryModule,
-    
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController], // Root-level controller
+  providers: [AppService], // Root-level service
 })
 export class AppModule {}
